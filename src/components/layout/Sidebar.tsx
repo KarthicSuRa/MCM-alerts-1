@@ -17,6 +17,7 @@ interface SidebarProps {
 
 const navItems = [
   { name: 'Dashboard', icon: 'dashboard', page: 'dashboard' },
+  { name: 'Site Monitoring', icon: 'globe', page: 'site-monitoring' },
   { name: 'Subscriptions', icon: 'layers', page: 'subscriptions' },
   { name: 'How It Works', icon: 'info', page: 'how-it-works' },
   { name: 'API Docs', icon: 'docs', page: 'api-docs' },
@@ -77,6 +78,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
             >
               <Icon name={item.icon} className="h-5 w-5" />
               {item.name}
+              {/* Add beta badge for site monitoring */}
+              {item.page === 'site-monitoring' && (
+                <span className="ml-auto text-xs bg-blue-500 text-white px-2 py-0.5 rounded-full">
+                  New
+                </span>
+              )}
             </a>
           ))}
         </nav>
