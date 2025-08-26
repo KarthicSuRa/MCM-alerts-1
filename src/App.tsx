@@ -15,7 +15,6 @@ import { supabase } from './lib/supabaseClient';
 import { OneSignalService } from './lib/oneSignalService';
 import { ThemeContext } from './contexts/ThemeContext';
 import ErrorBoundary from './components/ui/ErrorBoundary';
-import { SiteMonitoringPage } from './pages/SiteMonitoringPage';
 
 type NotificationFromDB = Database['public']['Tables']['notifications']['Row'];
 type CommentFromDB = Database['public']['Tables']['comments']['Row'];
@@ -1312,9 +1311,6 @@ function App() {
       break;
     case 'api-docs':
       pageComponent = <ApiDocsPage {...commonProps} />;
-      break;
-    case 'site-monitoring':
-      pageComponent = <SiteMonitoringPage {...commonProps} />;
       break;
     case 'audit-logs':
       pageComponent = <AuditLogsPage {...commonProps} />;
