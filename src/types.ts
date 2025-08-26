@@ -16,6 +16,7 @@ export interface Database {
           timestamp: string;
           site: string | null;
           topic_id: string | null;
+          monitored_site_id?: string | null;
         };
         Insert: {
           id?: string;
@@ -29,6 +30,7 @@ export interface Database {
           timestamp?: string;
           site?: string | null;
           topic_id?: string | null;
+          monitored_site_id?: string | null;
         };
         Update: {
           id?: string;
@@ -42,6 +44,7 @@ export interface Database {
           timestamp?: string;
           site?: string | null;
           topic_id?: string | null;
+          monitored_site_id?: string | null;
         };
         Relationships: [
           {
@@ -49,6 +52,13 @@ export interface Database {
             columns: ["topic_id"];
             isOneToOne: false;
             referencedRelation: "topics";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "notifications_monitored_site_id_fkey";
+            columns: ["monitored_site_id"];
+            isOneToOne: false;
+            referencedRelation: "monitored_sites";
             referencedColumns: ["id"];
           }
         ];
@@ -157,6 +167,7 @@ export interface Database {
           tags?: string[];
           is_active?: boolean;
         };
+        Relationships: [];
       };
       site_monitoring_logs: {
         Row: SiteMonitoringLog;
@@ -182,6 +193,15 @@ export interface Database {
           response_headers?: Record<string, any> | null;
           response_size?: number | null;
         };
+        Relationships: [
+          {
+            foreignKeyName: "site_monitoring_logs_site_id_fkey";
+            columns: ["site_id"];
+            isOneToOne: false;
+            referencedRelation: "monitored_sites";
+            referencedColumns: ["id"];
+          }
+        ];
       };
       comments: {
         Row: {
@@ -258,6 +278,7 @@ export interface Database {
     Views: {
       site_monitoring_dashboard: {
         Row: SiteMonitoringDashboard;
+        Relationships: [];
       };
     };
     Functions: {
@@ -384,6 +405,7 @@ export interface Notification {
   topic_id: string | null;
   created_at: string;
   updated_at: string;
+  monitored_site_id?: string | null;
 }
 
 export type NotificationUpdatePayload = Database['public']['Tables']['notifications']['Update'];
